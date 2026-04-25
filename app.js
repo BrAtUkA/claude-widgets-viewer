@@ -429,11 +429,14 @@ uploadBtn.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', (e) => { addFiles(Array.from(e.target.files)); fileInput.value = ''; });
 
 // Empty state drop target + browse button
-dropZone.addEventListener('click', (e) => { if (e.target.closest('.empty-browse-btn') || e.target.closest('.empty-example-btn')) return; fileInput.click(); });
+dropZone.addEventListener('click', (e) => {
+  if (e.target.closest('.empty-example-btn')) return;
+  fileInput.click();
+});
 dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
 dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles(Array.from(e.dataTransfer.files)); });
-document.getElementById('emptyBrowseBtn').addEventListener('click', () => fileInput.click());
+
 
 const emptyExampleBtn = document.getElementById('emptyExampleBtn');
 if (emptyExampleBtn) {
