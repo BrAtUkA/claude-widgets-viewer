@@ -38,6 +38,9 @@ const promptTextarea = document.getElementById('promptTextarea');
 const promptCloseBtn = document.getElementById('promptCloseBtn');
 const promptCopyBtn = document.getElementById('promptCopyBtn');
 const promptClaudeBtn = document.getElementById('promptClaudeBtn');
+const aboutBtn = document.getElementById('aboutBtn');
+const aboutOverlay = document.getElementById('aboutOverlay');
+const aboutCloseBtn = document.getElementById('aboutCloseBtn');
 
 // SVG icon fragments for file list items
 const ICON_FILE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>';
@@ -602,6 +605,18 @@ promptClaudeBtn.addEventListener('click', () => {
   navigator.clipboard.writeText(promptTextarea.value);
   window.open(`https://claude.ai/new?q=${encodeURIComponent(promptTextarea.value)}`, '_blank');
   promptOverlay.style.display = 'none';
+});
+
+// ══════════════════════════════════════
+// About Interceptor
+// ══════════════════════════════════════
+
+aboutBtn.addEventListener('click', () => {
+  aboutOverlay.style.display = 'flex';
+});
+
+aboutCloseBtn.addEventListener('click', () => {
+  aboutOverlay.style.display = 'none';
 });
 
 // ══════════════════════════════════════

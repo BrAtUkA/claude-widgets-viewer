@@ -107,6 +107,19 @@
       </div>
       <div class="file-list" id="fileList"></div>
 
+      <div class="sidebar-actions about-section">
+        <button class="sidebar-action-btn" id="aboutBtn" title="About">
+          <div class="icon-wrap">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <span class="action-label">About</span>
+        </button>
+      </div>
+
       <!-- Sidebar footer -->
       <div class="sidebar-footer" id="sidebarFooter">
         <div class="sidebar-footer-info">
@@ -257,6 +270,39 @@
           Open in Claude
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About dialog -->
+  <div class="confirm-overlay" id="aboutOverlay">
+    <div class="confirm-dialog prompt-dialog" style="max-width: 440px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="about-logo"></div>
+          <div>
+            <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--shell-text);">Claude Widgets Viewer</h3>
+            <span style="font-size:12px; color:var(--shell-text-muted);">Built by BrAtUkA</span>
+          </div>
+        </div>
+        <button id="aboutCloseBtn" style="background:none; border:none; cursor:pointer; color:var(--shell-text-muted); padding:4px; display:flex;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div style="font-size:13px; color:var(--shell-text); line-height:1.5;">
+        <p style="margin-bottom:16px; color:var(--shell-text-muted);">A pixel-perfect, offline environment for viewing and managing your exported Claude artifacts exactly as they appeared in the chat. 100% private, fully responsive, and completely local.</p>
+        
+        <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+          <a href="https://github.com/BrAtUkA/" target="_blank" style="color:var(--shell-text); text-decoration:none; display:flex; align-items:center; gap:6px; font-weight:500;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            GitHub
+          </a>
+          <a href="https://bratuka.dev/" target="_blank" style="color:var(--shell-text); text-decoration:none; display:flex; align-items:center; gap:6px; font-weight:500;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            Website
+          </a>
+        </div>
+        <p style="margin-bottom:0px;">If you find this viewer helpful, please consider leaving a star on <a href="https://github.com/BrAtUkA/claude-widgets-viewer" target="_blank" style="color:inherit; text-decoration:underline;">GitHub!</a> <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="color: #f59e0b; display:inline-block; vertical-align:text-bottom; margin-left:2px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></p>
       </div>
     </div>
   </div>

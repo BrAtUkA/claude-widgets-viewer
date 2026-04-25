@@ -145,6 +145,11 @@ body {
   padding: 8px;
 }
 
+.about-section {
+  margin-top: auto;
+  border-top: 1px solid var(--shell-border);
+}
+
 .icon-wrap {
   width: 20px;
   height: 20px;
@@ -1068,8 +1073,25 @@ body {
 }
 
 /* ══════════════════════════════════════
-   Misc
+   About Logo & Misc
    ══════════════════════════════════════ */
+.about-logo {
+  width: 42px;
+  height: 42px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+html[data-theme='dark'] .about-logo {
+  background-image: url('https://raw.githubusercontent.com/BrAtUkA/BrAtUkA/main/imgs/logo-flat-white.png');
+}
+
+html[data-theme='light'] .about-logo {
+  background-image: url('https://raw.githubusercontent.com/BrAtUkA/BrAtUkA/main/imgs/logo-flat-black.png');
+}
+
 #fileInput {
   display: none;
 }
