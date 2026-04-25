@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Widgets Viewer - Local Offline Renderer</title>
+  <meta name="description"
+    content="View, manage, and render Claude AI widgets, visual artifacts, and diagrams exactly as they appear in the chat. Pixel-perfect, fully offline, and 100% private.">
+  <meta name="author" content="BrAtUkA">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1f1f1e">
+  <link rel="canonical" href="https://bratuka.dev/claude-widgets-viewer/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Claude Widgets Viewer">
+  <meta property="og:url" content="https://bratuka.dev/claude-widgets-viewer/">
+  <meta property="og:title" content="Claude Widgets Viewer - Local Offline Renderer">
+  <meta property="og:description"
+    content="View, manage, and render Claude AI widgets, visual artifacts, and diagrams exactly as they appear in the chat. Pixel-perfect, fully offline, and 100% private.">
+  <meta property="og:image" content="https://bratuka.dev/claude-widgets-viewer/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Widgets Viewer - Local Offline Renderer">
+  <meta name="twitter:description"
+    content="View, manage, and render Claude AI widgets, visual artifacts, and diagrams exactly as they appear in the chat. Pixel-perfect, fully offline, and 100% private.">
+  <meta name="twitter:image" content="https://bratuka.dev/claude-widgets-viewer/img/og-image.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Claude Widgets Viewer",
+    "alternateName": ["Claude Visuals Viewer", "Claude Artifacts Viewer", "Claude Diagrams Renderer"],
+    "url": "https://bratuka.dev/claude-widgets-viewer/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Claude Widgets Viewer",
+    "url": "https://bratuka.dev/claude-widgets-viewer/",
+    "operatingSystem": "Web Browser",
+    "applicationCategory": "UtilityApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "View, manage, and render Claude AI widgets, visual artifacts, and diagrams exactly as they appear in the chat. Pixel-perfect, fully offline, and 100% private.",
+    "featureList": "Pixel-perfect CSS environment, Local IndexedDB persistence, Offline processing, Privacy-focused, Instant artifact search"
+  }
+  </script>
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="layout" id="layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Sidebar header: logo + title + collapse toggle -->
+      <div class="sidebar-brand">
+        <img class="logo-mark" src="img/logo.png" alt="Logo">
+        <span class="brand-text">Claude Widgets</span>
+        <button class="sidebar-collapse-btn" id="sidebarToggle" title="Toggle sidebar">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path
+              d="M16.5 4A1.5 1.5 0 0 1 18 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 2 14.5v-9A1.5 1.5 0 0 1 3.5 4zM7 15h9.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H7zM3.5 5a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H6V5z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Action buttons row -->
+      <div class="sidebar-actions">
+        <button class="sidebar-action-btn" id="uploadBtn">
+          <div class="icon-wrap upload-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true" style="flex-shrink: 0;">
+              <path
+                d="M10 3a.75.75 0 0 1 .75.75v5.5h5.5a.75.75 0 0 1 .077 1.496l-.077.004h-5.5v5.5a.75.75 0 0 1-1.5 0v-5.5h-5.5a.75.75 0 0 1 0-1.5h5.5v-5.5A.75.75 0 0 1 10 3">
+              </path>
+            </svg>
+          </div>
+          <span class="action-label">Add files</span>
+        </button>
+        <button class="sidebar-action-btn" id="searchBtn" title="Search widgets">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true" style="flex-shrink: 0;">
+              <path
+                d="M8.5 2a6.5 6.5 0 0 1 4.935 10.728l4.419 4.419.064.078a.5.5 0 0 1-.693.693l-.079-.064-4.419-4.42A6.5 6.5 0 1 1 8.5 2m0 1a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11">
+              </path>
+            </svg>
+          </div>
+          <span class="action-label">Search</span>
+        </button>
+      </div>
+
+      <!-- File list -->
+      <div class="sidebar-section-label">
+        <span class="section-text">Widgets</span>
+        <span class="file-count" id="fileCount">0</span>
+      </div>
+      <div class="file-list" id="fileList"></div>
+
+      <!-- Sidebar footer -->
+      <div class="sidebar-footer" id="sidebarFooter">
+        <div class="sidebar-footer-info">
+          <span class="footer-stats" id="footerStats">No widgets stored</span>
+        </div>
+        <button class="sidebar-footer-btn" id="clearAllBtn" title="Clear all stored widgets">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+            <path d="M10 11v6" />
+            <path d="M14 11v6" />
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+          </svg>
+          <span class="action-label">Clear all</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── Main area ── -->
+    <div class="main-area">
+      <!-- Topbar (right-side controls only) -->
+      <header class="topbar">
+        <button class="btn-icon mobile-sidebar-toggle" id="mobileSidebarToggle" title="Open sidebar">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path
+              d="M16.5 4A1.5 1.5 0 0 1 18 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 2 14.5v-9A1.5 1.5 0 0 1 3.5 4zM7 15h9.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H7zM3.5 5a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H6V5z" />
+          </svg>
+        </button>
+        <div class="topbar-center">
+          <span class="active-title" id="activeTitle"></span>
+        </div>
+        <div class="topbar-actions">
+          <div class="width-controls" id="widthControls">
+            <button class="width-btn active" data-width="720" title="Default (720px)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" />
+              </svg>
+              <span class="btn-label">Default</span>
+            </button>
+            <button class="width-btn" data-width="960" title="Wide (960px)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="2" />
+              </svg>
+              <span class="btn-label">Wide</span>
+            </button>
+            <button class="width-btn" data-width="100%" title="Full width">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9" />
+                <polyline points="9 21 3 21 3 15" />
+                <line x1="21" y1="3" x2="14" y2="10" />
+                <line x1="3" y1="21" x2="10" y2="14" />
+              </svg>
+              <span class="btn-label">Full</span>
+            </button>
+          </div>
+          <div class="topbar-sep"></div>
+          <button class="btn-icon" id="themeToggle" title="Toggle light/dark theme">
+            <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Preview -->
+      <main class="preview" id="previewArea">
+        <div class="preview-empty" id="emptyState">
+          <div class="empty-drop-target" id="dropZone">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+              stroke-linecap="round" stroke-linejoin="round" opacity="0.25">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="12" y1="18" x2="12" y2="12" />
+              <line x1="9" y1="15" x2="12" y2="12" />
+              <line x1="15" y1="15" x2="12" y2="12" />
+            </svg>
+            <h3>Drop widgets here</h3>
+            <p>Drag and drop Claude artifact HTML files, or</p>
+            <div class="empty-actions">
+              <button class="empty-btn primary" id="emptyBrowseBtn">Browse files</button>
+              <button class="empty-btn secondary" id="emptyExampleBtn">Load example</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-panel">
+      <div class="search-input-wrap">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" opacity="0.4">
+          <path
+            d="M8.5 2a6.5 6.5 0 0 1 4.935 10.728l4.419 4.419.064.078a.5.5 0 0 1-.693.693l-.079-.064-4.419-4.42A6.5 6.5 0 1 1 8.5 2m0 1a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11">
+          </path>
+        </svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search widgets..." autocomplete="off"
+          spellcheck="false">
+        <kbd class="search-kbd">ESC</kbd>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+      <div class="search-empty" id="searchEmpty">No results</div>
+    </div>
+  </div>
+
+  <!-- Confirm dialog -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-dialog">
+      <p class="confirm-message" id="confirmMessage"></p>
+      <div class="confirm-actions">
+        <button class="confirm-btn confirm-cancel" id="confirmCancel">Cancel</button>
+        <button class="confirm-btn confirm-danger" id="confirmOk">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompt dialog -->
+  <div class="confirm-overlay" id="promptOverlay">
+    <div class="confirm-dialog prompt-dialog">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="margin:0; font-size:14px; font-weight:600; color:var(--shell-text);">Widget Prompt</h3>
+        <button id="promptCloseBtn" style="background:none; border:none; cursor:pointer; color:var(--shell-text-muted); padding:4px; display:flex;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <textarea class="prompt-textarea" id="promptTextarea" readonly></textarea>
+      <div class="confirm-actions" style="margin-top:16px;">
+        <button class="confirm-btn confirm-cancel" id="promptCopyBtn">Copy</button>
+        <button class="confirm-btn" id="promptClaudeBtn" style="background:var(--shell-accent); color:#fff; border:none; display:flex; align-items:center; justify-content:center; gap:6px;">
+          Open in Claude
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global drop overlay -->
+  <div class="global-drop-overlay" id="globalDrop">
+    <div class="global-drop-overlay-inner">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+      </svg>
+      <h2>Drop visual files here</h2>
+      <p>Supports .html Claude visual artifacts</p>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" multiple accept=".html,.htm">
+  <script src="storage.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

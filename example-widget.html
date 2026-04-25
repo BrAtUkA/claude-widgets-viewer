@@ -1,0 +1,577 @@
+
+<h2 class="sr-only">Pulse Analytics — full capability showcase: tabs, charts, data table, forms, modal, animations, and more</h2>
+<style>
+*{box-sizing:border-box}
+.tab-btn{background:none;border:0.5px solid transparent;padding:5px 13px;font-size:12px;cursor:pointer;border-radius:var(--border-radius-md);color:var(--color-text-secondary);transition:all .15s;font-family:var(--font-sans)}
+.tab-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-tertiary)}
+.tab-btn:hover:not(.active){color:var(--color-text-primary)}
+.sec{display:block}.sec.hidden{display:none}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem}
+.kpi{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.875rem}
+.kpi-lbl{font-size:11px;color:var(--color-text-secondary);margin:0 0 3px;text-transform:uppercase;letter-spacing:.04em}
+.kpi-val{font-size:24px;font-weight:500;margin:0;font-family:var(--font-mono);color:var(--color-text-primary);line-height:1}
+.badge{font-size:11px;padding:2px 7px;border-radius:var(--border-radius-md);display:inline-block;font-weight:500}
+.bs{background:var(--color-background-success);color:var(--color-text-success)}
+.bd{background:var(--color-background-danger);color:var(--color-text-danger)}
+.bi{background:var(--color-background-info);color:var(--color-text-info)}
+.bw{background:var(--color-background-warning);color:var(--color-text-warning)}
+.row{display:flex;gap:12px}.col{flex:1;min-width:0}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{font-weight:500;text-align:left;padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;user-select:none}
+th:hover{color:var(--color-text-primary)}
+td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--color-background-secondary)}
+.form-lbl{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:block}
+.form-g{margin-bottom:.875rem}
+.tog{position:relative;width:30px;height:17px;background:var(--color-border-secondary);border-radius:9px;display:inline-flex;align-items:center;flex-shrink:0;cursor:pointer}
+.tog:has(input:checked){background:#378ADD}
+.tog input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;margin:0}
+.tog span{position:absolute;left:2px;width:13px;height:13px;background:#fff;border-radius:50%;transition:transform .2s;pointer-events:none}
+.tog:has(input:checked) span{transform:translateX(13px)}
+.prog-track{background:var(--color-background-secondary);border-radius:4px;height:5px;overflow:hidden;margin:4px 0 3px}
+.prog-bar{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.swatch{width:9px;height:9px;border-radius:2px;display:inline-block;flex-shrink:0}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--color-text-secondary);margin-bottom:6px}
+.legend span{display:flex;align-items:center;gap:4px}
+.dot-pulse{width:7px;height:7px;border-radius:50%;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+.dot-pulse.g{background:#1D9E75}.dot-pulse.b{background:#378ADD}.dot-pulse.a{background:#EF9F27}.dot-pulse.r{background:#E24B4A}
+.act-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:12px}
+.act-row:last-child{border-bottom:none}
+.chip{font-size:10px;padding:2px 8px;border-radius:12px;font-weight:500}
+.integration{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+.st{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px}
+.section-sep{margin:12px 0;border:none;border-top:0.5px solid var(--color-border-tertiary)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.8)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes barGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes widthIn{from{width:0}to{width:var(--tw)}}
+</style>
+
+<!-- ═══ HEADER ═══ -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:0.5px solid var(--color-border-tertiary);animation:fadeIn .4s ease">
+  <div>
+    <p style="margin:0;font-size:16px;font-weight:500;color:var(--color-text-primary);letter-spacing:-.01em">Pulse Analytics</p>
+    <p style="margin:2px 0 0;font-size:11px;color:var(--color-text-tertiary);font-family:var(--font-mono)">Apr 25, 2026 · 09:41 UTC · Workspace: Acme Corp</p>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <span class="badge bs" style="display:flex;align-items:center;gap:4px"><span class="dot-pulse g" style="animation-duration:.9s;width:5px;height:5px"></span>Live</span>
+    <button onclick="openModal()" style="font-size:12px">Export ↗</button>
+    <button onclick="sendPrompt('Give me an executive summary of my Pulse Analytics dashboard')" style="font-size:12px">Ask Claude ↗</button>
+  </div>
+</div>
+
+<!-- ═══ TAB NAV ═══ -->
+<div style="display:flex;gap:3px;margin-bottom:14px" id="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('overview',this)">Overview</button>
+  <button class="tab-btn" onclick="switchTab('analytics',this)">Analytics</button>
+  <button class="tab-btn" onclick="switchTab('data',this)">Data</button>
+  <button class="tab-btn" onclick="switchTab('settings',this)">Settings</button>
+</div>
+
+<!-- ══════════════════ OVERVIEW ══════════════════ -->
+<div id="tab-overview" class="sec">
+
+  <!-- KPI CARDS with SVG sparklines -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px">
+    <div class="kpi" style="animation:slideUp .35s ease">
+      <p class="kpi-lbl">Total revenue</p>
+      <p class="kpi-val">$2.4M</p>
+      <div style="display:flex;align-items:center;gap:5px;margin:5px 0">
+        <span class="badge bs" style="font-size:10px">+12.4%</span>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">vs last mo.</span>
+      </div>
+      <svg viewBox="0 0 100 28" width="100%" style="display:block"><polyline points="0,24 12,20 22,18 34,20 46,12 58,14 68,8 78,10 88,4 100,2" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="kpi" style="animation:slideUp .45s ease">
+      <p class="kpi-lbl">Active users</p>
+      <p class="kpi-val">18,402</p>
+      <div style="display:flex;align-items:center;gap:5px;margin:5px 0">
+        <span class="badge bi" style="font-size:10px">+8.1%</span>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">vs last mo.</span>
+      </div>
+      <svg viewBox="0 0 100 28" width="100%" style="display:block"><polyline points="0,22 12,18 22,20 34,14 46,16 58,10 68,12 78,8 88,10 100,6" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="kpi" style="animation:slideUp .55s ease">
+      <p class="kpi-lbl">Churn rate</p>
+      <p class="kpi-val">2.1%</p>
+      <div style="display:flex;align-items:center;gap:5px;margin:5px 0">
+        <span class="badge bd" style="font-size:10px">+0.4%</span>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">vs last mo.</span>
+      </div>
+      <svg viewBox="0 0 100 28" width="100%" style="display:block"><polyline points="0,6 12,10 22,8 34,12 46,10 58,14 68,12 78,18 88,16 100,22" fill="none" stroke="#E24B4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="kpi" style="animation:slideUp .65s ease">
+      <p class="kpi-lbl">NPS score</p>
+      <p class="kpi-val">74</p>
+      <div style="display:flex;align-items:center;gap:5px;margin:5px 0">
+        <span class="badge bw" style="font-size:10px">+2 pts</span>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">vs last mo.</span>
+      </div>
+      <svg viewBox="0 0 100 28" width="100%" style="display:block"><polyline points="0,20 12,18 22,16 34,18 46,12 58,10 68,12 78,8 88,10 100,5" fill="none" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- MAIN CHARTS ROW -->
+  <div class="row" style="margin-bottom:12px">
+    <div class="card col" style="flex:2;min-width:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <p class="st" style="margin:0">Revenue over time</p>
+        <div class="legend" style="margin:0">
+          <span><span class="swatch" style="background:#378ADD"></span>2026</span>
+          <span><span class="swatch" style="background:#888780;opacity:.5"></span>2025</span>
+        </div>
+      </div>
+      <div style="position:relative;height:170px"><canvas id="c-line" role="img" aria-label="Line chart: 2026 monthly revenue from $180K to $390K, higher than 2025 across all months">2026 revenue trending upward from $180K to $390K, above 2025 levels.</canvas></div>
+    </div>
+    <div class="card col" style="min-width:0">
+      <p class="st">Traffic sources</p>
+      <div style="position:relative;height:120px"><canvas id="c-donut" role="img" aria-label="Donut chart: Organic 42%, Paid 28%, Referral 18%, Direct 12%">Organic 42, Paid 28, Referral 18, Direct 12 percent.</canvas></div>
+      <div class="legend" style="margin-top:8px;margin-bottom:0">
+        <span><span class="swatch" style="background:#378ADD"></span>Organic 42%</span>
+        <span><span class="swatch" style="background:#1D9E75"></span>Paid 28%</span>
+        <span><span class="swatch" style="background:#EF9F27"></span>Referral 18%</span>
+        <span><span class="swatch" style="background:#D85A30"></span>Direct 12%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY + GOALS -->
+  <div class="row">
+    <div class="card col" style="min-width:0">
+      <p class="st">Live activity</p>
+      <div class="act-row"><span class="dot-pulse g"></span><div style="flex:1;color:var(--color-text-primary)">New signup — Aria Chen <span style="color:var(--color-text-tertiary);font-size:10px">just now</span></div><span class="chip bs">signup</span></div>
+      <div class="act-row"><span class="dot-pulse b" style="animation-delay:.5s"></span><div style="flex:1;color:var(--color-text-primary)">Payment processed — $299 <span style="color:var(--color-text-tertiary);font-size:10px">2m ago</span></div><span class="chip bi">payment</span></div>
+      <div class="act-row"><span class="dot-pulse a" style="animation-delay:1s"></span><div style="flex:1;color:var(--color-text-primary)">API rate limit — org:231 <span style="color:var(--color-text-tertiary);font-size:10px">5m ago</span></div><span class="chip bw">warning</span></div>
+      <div class="act-row"><span class="dot-pulse r" style="animation-delay:1.5s"></span><div style="flex:1;color:var(--color-text-primary)">Churn risk flagged — Farrukh T. <span style="color:var(--color-text-tertiary);font-size:10px">12m ago</span></div><span class="chip bd">at-risk</span></div>
+      <div class="act-row"><span class="dot-pulse g" style="animation-delay:.25s"></span><div style="flex:1;color:var(--color-text-primary)">Export complete — Q1_report.csv <span style="color:var(--color-text-tertiary);font-size:10px">18m ago</span></div><span class="chip bs">export</span></div>
+      <button onclick="sendPrompt('Show me a detailed breakdown of today\'s live activity')" style="margin-top:8px;width:100%;font-size:12px">All activity ↗</button>
+    </div>
+    <div class="card col" style="min-width:0">
+      <p class="st">Goal progress</p>
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px"><span style="color:var(--color-text-secondary)">Revenue target</span><span style="color:var(--color-text-primary);font-family:var(--font-mono)">$2.4M / $3M</span></div>
+        <div class="prog-track"><div class="prog-bar" style="width:80%;background:#378ADD"></div></div>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">80% complete</span>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px"><span style="color:var(--color-text-secondary)">User acquisition</span><span style="color:var(--color-text-primary);font-family:var(--font-mono)">18.4K / 25K</span></div>
+        <div class="prog-track"><div class="prog-bar" style="width:74%;background:#1D9E75"></div></div>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">74% complete</span>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px"><span style="color:var(--color-text-secondary)">Churn reduction</span><span style="color:var(--color-text-primary);font-family:var(--font-mono)">2.1% → 1.8%</span></div>
+        <div class="prog-track"><div class="prog-bar" style="width:55%;background:#EF9F27"></div></div>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">55% toward target</span>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px"><span style="color:var(--color-text-secondary)">NPS score</span><span style="color:var(--color-text-primary);font-family:var(--font-mono)">74 / 80</span></div>
+        <div class="prog-track"><div class="prog-bar" style="width:93%;background:#7F77DD"></div></div>
+        <span style="font-size:10px;color:var(--color-text-tertiary)">93% toward target</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ANALYTICS ══════════════════ -->
+<div id="tab-analytics" class="sec">
+  <!-- Controls bar -->
+  <div class="card" style="margin-bottom:12px">
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <p class="st" style="margin:0;flex:1">Weekly performance</p>
+      <label style="font-size:12px;color:var(--color-text-secondary)">Scale</label>
+      <input type="range" id="mult-slider" min="1" max="3" value="1" step="0.1" style="width:100px" oninput="updateBar(this.value)">
+      <span id="mult-val" style="font-size:12px;font-family:var(--font-mono);min-width:32px;color:var(--color-text-primary)">1.0×</span>
+      <select onchange="filterBar(this.value)" style="font-size:12px;width:auto;padding:4px 8px">
+        <option value="all">All metrics</option>
+        <option value="sessions">Sessions only</option>
+        <option value="conv">Conversions only</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom:12px">
+    <div class="card col" style="flex:2;min-width:0">
+      <div class="legend">
+        <span><span class="swatch" style="background:#378ADD"></span>Sessions</span>
+        <span><span class="swatch" style="background:#1D9E75"></span>Conversions</span>
+      </div>
+      <div style="position:relative;height:190px"><canvas id="c-bar" role="img" aria-label="Grouped bar chart: daily sessions and conversions Mon–Sun, peaking Friday">Sessions peak Friday ~1,750; conversions follow same pattern.</canvas></div>
+    </div>
+    <div class="card col" style="min-width:0">
+      <p class="st">Load time vs CVR</p>
+      <div style="position:relative;height:190px"><canvas id="c-scatter" role="img" aria-label="Scatter chart: faster load times correlate with higher conversion rates">Inverse relationship between load time and conversion rate.</canvas></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card col" style="min-width:0">
+      <p class="st">Channel engagement</p>
+      <div class="legend">
+        <span><span class="swatch" style="background:#378ADD"></span>This month</span>
+        <span><span class="swatch" style="background:#888780;opacity:.6"></span>Last month</span>
+      </div>
+      <div style="position:relative;height:190px"><canvas id="c-radar" role="img" aria-label="Radar chart: engagement scores for Email, Social, Push, Web, App — this month higher across all channels">All channels improved month-over-month.</canvas></div>
+    </div>
+    <div class="card col" style="min-width:0">
+      <p class="st" style="margin-bottom:10px">Quick stats</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div class="kpi"><p class="kpi-lbl">Avg session</p><p class="kpi-val" style="font-size:18px">4m 32s</p></div>
+        <div class="kpi"><p class="kpi-lbl">Bounce rate</p><p class="kpi-val" style="font-size:18px">38%</p></div>
+        <div class="kpi"><p class="kpi-lbl">Pages/visit</p><p class="kpi-val" style="font-size:18px">3.7</p></div>
+        <div class="kpi"><p class="kpi-lbl">30-day retention</p><p class="kpi-val" style="font-size:18px">62%</p></div>
+      </div>
+      <p class="st" style="margin-bottom:8px">Revenue by product</p>
+      <div style="position:relative;height:100px"><canvas id="c-hbar" role="img" aria-label="Horizontal bar chart: revenue by product line — Pro $890K, Enterprise $1.2M, Starter $310K">Enterprise leads at $1.2M, Pro $890K, Starter $310K.</canvas></div>
+      <div class="legend" style="margin-top:6px">
+        <span><span class="swatch" style="background:#378ADD"></span>Enterprise $1.2M</span>
+        <span><span class="swatch" style="background:#1D9E75"></span>Pro $890K</span>
+        <span><span class="swatch" style="background:#EF9F27"></span>Starter $310K</span>
+      </div>
+      <button onclick="sendPrompt('Analyze my channel engagement and suggest which channels to invest in more')" style="margin-top:10px;width:100%;font-size:12px">Ask Claude to analyze ↗</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ DATA ══════════════════ -->
+<div id="tab-data" class="sec">
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+      <p class="st" style="margin:0">Customer records</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="text" id="tbl-search" placeholder="Search..." style="width:160px;font-size:12px" oninput="filterTable(this.value)">
+        <select onchange="sortTable(this.value)" style="font-size:12px;width:auto;padding:4px 8px">
+          <option value="">Sort by...</option>
+          <option value="name">Name A–Z</option>
+          <option value="revenue">Revenue ↓</option>
+          <option value="plan">Plan</option>
+          <option value="status">Status</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th onclick="cycleSortTable('name')">Customer</th>
+          <th onclick="cycleSortTable('plan')">Plan</th>
+          <th onclick="cycleSortTable('revenue')">MRR</th>
+          <th onclick="cycleSortTable('status')">Status</th>
+          <th>ARR</th>
+          <th style="cursor:default">Action</th>
+        </tr></thead>
+        <tbody id="tbl-body"></tbody>
+      </table>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:11px;color:var(--color-text-secondary)">
+      <span id="tbl-count">Showing 10 of 10 records</span>
+      <div style="display:flex;gap:6px">
+        <button style="font-size:11px;padding:3px 10px" onclick="sendPrompt('Export the customer data table to CSV')">Export CSV ↗</button>
+        <button style="font-size:11px;padding:3px 10px" onclick="sendPrompt('Which customers are at risk of churning and why?')">Churn analysis ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SETTINGS ══════════════════ -->
+<div id="tab-settings" class="sec">
+  <div class="row" style="margin-bottom:12px">
+    <div class="card col" style="min-width:0">
+      <p class="st">Notification preferences</p>
+      <div class="form-g">
+        <span class="form-lbl">Email alerts</span>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px"><label class="tog"><input type="checkbox" checked><span></span></label><span style="color:var(--color-text-primary)">Weekly digest</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px"><label class="tog"><input type="checkbox" checked><span></span></label><span style="color:var(--color-text-primary)">Payment alerts</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px"><label class="tog"><input type="checkbox"><span></span></label><span style="color:var(--color-text-primary)">Marketing emails</span></div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px"><label class="tog"><input type="checkbox" checked><span></span></label><span style="color:var(--color-text-primary)">Churn risk alerts</span></div>
+        </div>
+      </div>
+      <div class="form-g">
+        <span class="form-lbl">Alert threshold (churn probability)</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input type="range" min="0" max="100" value="65" style="flex:1" oninput="this.nextElementSibling.textContent=this.value+'%'">
+          <span style="font-size:12px;font-family:var(--font-mono);min-width:34px;color:var(--color-text-primary)">65%</span>
+        </div>
+      </div>
+      <div class="form-g">
+        <span class="form-lbl">Report frequency</span>
+        <select style="width:100%;font-size:13px">
+          <option>Daily</option><option selected>Weekly</option><option>Monthly</option><option>Quarterly</option>
+        </select>
+      </div>
+      <div class="form-g" style="margin-bottom:0">
+        <span class="form-lbl">Slack webhook</span>
+        <input type="text" value="https://hooks.slack.com/services/T0..." style="font-size:12px;font-family:var(--font-mono)">
+      </div>
+    </div>
+    <div class="card col" style="min-width:0">
+      <p class="st">Profile & workspace</p>
+      <div class="form-g">
+        <span class="form-lbl">Display name</span>
+        <input type="text" value="Aria Chen">
+      </div>
+      <div class="form-g">
+        <span class="form-lbl">Work email</span>
+        <input type="email" value="aria@acmecorp.io">
+      </div>
+      <div class="form-g">
+        <span class="form-lbl">Timezone</span>
+        <select style="width:100%">
+          <option>UTC+0 — London</option>
+          <option>UTC-5 — New York</option>
+          <option>UTC-8 — Los Angeles</option>
+          <option>UTC+1 — Paris</option>
+          <option>UTC+5:30 — Karachi / Mumbai</option>
+          <option>UTC+8 — Singapore</option>
+        </select>
+      </div>
+      <div class="form-g">
+        <span class="form-lbl">Dashboard notes</span>
+        <textarea rows="3" style="width:100%;font-size:12px;resize:vertical" placeholder="Internal notes for this workspace...">Q2 focus: reduce churn below 2%. NPS target 80 by Q3.</textarea>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="sendPrompt('Save my profile settings')" style="flex:1;font-size:12px">Save changes ↗</button>
+        <button style="font-size:12px;padding:6px 12px;color:var(--color-text-danger);border-color:var(--color-border-danger)">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Integrations -->
+  <div class="card">
+    <p class="st">Integrations</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px">
+      <div class="integration"><div><p style="margin:0;font-size:13px;font-weight:500;color:var(--color-text-primary)">Slack</p><p style="margin:0;font-size:10px;color:var(--color-text-tertiary)">Notifications & alerts</p></div><span class="badge bs">Active</span></div>
+      <div class="integration"><div><p style="margin:0;font-size:13px;font-weight:500;color:var(--color-text-primary)">Stripe</p><p style="margin:0;font-size:10px;color:var(--color-text-tertiary)">Billing & payments</p></div><span class="badge bs">Active</span></div>
+      <div class="integration"><div><p style="margin:0;font-size:13px;font-weight:500;color:var(--color-text-primary)">Salesforce</p><p style="margin:0;font-size:10px;color:var(--color-text-tertiary)">CRM sync</p></div><span class="badge bw">Inactive</span></div>
+      <div class="integration"><div><p style="margin:0;font-size:13px;font-weight:500;color:var(--color-text-primary)">HubSpot</p><p style="margin:0;font-size:10px;color:var(--color-text-tertiary)">Marketing automation</p></div><span class="badge bw">Inactive</span></div>
+      <div class="integration"><div><p style="margin:0;font-size:13px;font-weight:500;color:var(--color-text-primary)">Segment</p><p style="margin:0;font-size:10px;color:var(--color-text-tertiary)">Event tracking</p></div><span class="badge bs">Active</span></div>
+      <div class="integration"><div><p style="margin:0;font-size:13px;font-weight:500;color:var(--color-text-primary)">Intercom</p><p style="margin:0;font-size:10px;color:var(--color-text-tertiary)">Customer support</p></div><span class="badge bd">Error</span></div>
+    </div>
+    <button onclick="sendPrompt('Help me connect Salesforce to my Pulse Analytics dashboard')" style="margin-top:10px;font-size:12px">Connect new integration ↗</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MODAL ══════════════════ -->
+<div id="modal-bg" style="display:none;min-height:420px;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;margin-top:12px;border-radius:var(--border-radius-lg)">
+  <div class="card" style="max-width:360px;width:90%;animation:slideUp .2s ease">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <p style="margin:0;font-size:14px;font-weight:500;color:var(--color-text-primary)">Export data</p>
+      <button onclick="closeModal()" style="font-size:12px;padding:3px 9px">Close</button>
+    </div>
+    <div class="form-g"><span class="form-lbl">Format</span>
+      <select style="width:100%"><option>CSV</option><option>JSON</option><option>Excel (.xlsx)</option><option>PDF report</option></select></div>
+    <div class="form-g"><span class="form-lbl">Date range</span>
+      <select style="width:100%"><option>Last 30 days</option><option>Last 90 days</option><option>Last 12 months</option><option>All time</option></select></div>
+    <div class="form-g">
+      <span class="form-lbl">Include sections</span>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--color-text-primary)"><input type="checkbox" checked> Revenue & MRR data</label>
+        <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--color-text-primary)"><input type="checkbox" checked> User analytics</label>
+        <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--color-text-primary)"><input type="checkbox"> Raw event logs</label>
+        <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--color-text-primary)"><input type="checkbox"> Customer records</label>
+      </div>
+    </div>
+    <button onclick="sendPrompt('Generate a CSV export of my analytics for the last 30 days including revenue and user data')" style="width:100%;font-size:12px">Download export ↗</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── TAB SYSTEM ──
+function switchTab(name, btn) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.remove('hidden');
+  btn.classList.add('active');
+}
+document.querySelectorAll('.sec').forEach((s, i) => { if (i > 0) s.classList.add('hidden'); });
+
+// ── MODAL ──
+function openModal() {
+  const m = document.getElementById('modal-bg');
+  m.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal-bg').style.display = 'none';
+}
+
+// ── CHART DEFAULTS ──
+Chart.defaults.font.size = 11;
+const gridColor = 'rgba(128,128,128,0.12)';
+const tickColor = '#888780';
+
+// ── LINE CHART ──
+new Chart(document.getElementById('c-line'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      { label: '2026', data: [180,210,195,240,260,280,310,295,330,350,370,390], borderColor: '#378ADD', backgroundColor: 'rgba(55,138,221,0.07)', borderWidth: 2, pointRadius: 3, pointHoverRadius: 5, fill: true, tension: 0.4 },
+      { label: '2025', data: [140,160,155,180,190,200,220,210,240,255,265,280], borderColor: '#888780', borderWidth: 1.5, borderDash: [4,4], pointRadius: 2, fill: false, tension: 0.4 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+      y: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+
+// ── DONUT CHART ──
+new Chart(document.getElementById('c-donut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Organic','Paid','Referral','Direct'],
+    datasets: [{ data: [42,28,18,12], backgroundColor: ['#378ADD','#1D9E75','#EF9F27','#D85A30'], borderWidth: 0, hoverOffset: 4 }]
+  },
+  options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { display: false } } }
+});
+
+// ── BAR CHART (interactive) ──
+const barBase = { sessions: [1200,1450,1380,1600,1750,1100,900], conv: [180,220,195,240,280,160,120] };
+const barChart = new Chart(document.getElementById('c-bar'), {
+  type: 'bar',
+  data: {
+    labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    datasets: [
+      { label: 'Sessions', data: [...barBase.sessions], backgroundColor: 'rgba(55,138,221,0.75)', borderRadius: 3 },
+      { label: 'Conversions', data: [...barBase.conv], backgroundColor: 'rgba(29,158,117,0.75)', borderRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: tickColor } },
+      y: { grid: { color: gridColor }, ticks: { color: tickColor } }
+    }
+  }
+});
+
+function updateBar(v) {
+  const m = parseFloat(v);
+  document.getElementById('mult-val').textContent = m.toFixed(1) + '×';
+  barChart.data.datasets[0].data = barBase.sessions.map(x => Math.round(x * m));
+  barChart.data.datasets[1].data = barBase.conv.map(x => Math.round(x * m));
+  barChart.update();
+}
+
+function filterBar(v) {
+  barChart.data.datasets[0].hidden = v === 'conv';
+  barChart.data.datasets[1].hidden = v === 'sessions';
+  barChart.update();
+}
+
+// ── SCATTER CHART ──
+new Chart(document.getElementById('c-scatter'), {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'Segments',
+      data: [{x:.8,y:4.2},{x:1.2,y:3.8},{x:1.5,y:3.2},{x:.6,y:4.8},{x:2.1,y:2.4},{x:1.8,y:2.9},{x:2.8,y:1.8},{x:3.2,y:1.2},{x:.4,y:5.1},{x:1.1,y:4.0},{x:2.4,y:2.2},{x:3.5,y:.9}],
+      backgroundColor: 'rgba(55,138,221,0.65)', pointRadius: 6, pointHoverRadius: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `Load: ${c.parsed.x.toFixed(1)}s · CVR: ${c.parsed.y.toFixed(1)}%` } } },
+    scales: {
+      x: { min: 0, max: 4.2, title: { display: true, text: 'Load time (s)', color: tickColor, font: { size: 10 } }, grid: { color: gridColor }, ticks: { color: tickColor } },
+      y: { min: 0, max: 6, title: { display: true, text: 'Conv. rate (%)', color: tickColor, font: { size: 10 } }, grid: { color: gridColor }, ticks: { color: tickColor } }
+    }
+  }
+});
+
+// ── RADAR CHART ──
+new Chart(document.getElementById('c-radar'), {
+  type: 'radar',
+  data: {
+    labels: ['Email','Social','Push','Web','App'],
+    datasets: [
+      { label: 'This month', data: [82,64,75,91,70], borderColor: '#378ADD', backgroundColor: 'rgba(55,138,221,0.12)', pointBackgroundColor: '#378ADD', borderWidth: 2 },
+      { label: 'Last month', data: [74,58,68,85,62], borderColor: '#888780', backgroundColor: 'rgba(136,135,128,0.07)', pointBackgroundColor: '#888780', borderDash: [4,4], borderWidth: 1.5 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { r: { ticks: { display: false }, grid: { color: 'rgba(128,128,128,0.15)' }, pointLabels: { color: tickColor, font: { size: 11 } }, min: 0, max: 100 } }
+  }
+});
+
+// ── HORIZONTAL BAR CHART ──
+new Chart(document.getElementById('c-hbar'), {
+  type: 'bar',
+  data: {
+    labels: ['Enterprise','Pro','Starter'],
+    datasets: [{ data: [1200,890,310], backgroundColor: ['#378ADD','#1D9E75','#EF9F27'], borderRadius: 3 }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => '$' + v + 'K' } },
+      y: { grid: { display: false }, ticks: { color: tickColor } }
+    }
+  }
+});
+
+// ── DATA TABLE ──
+const rows = [
+  { name:'Aria Chen', plan:'Enterprise', revenue:4800, status:'active' },
+  { name:'Bruno Martins', plan:'Pro', revenue:299, status:'active' },
+  { name:'Chloe Nakamura', plan:'Enterprise', revenue:6200, status:'active' },
+  { name:'Dario Mbeki', plan:'Starter', revenue:49, status:'trialing' },
+  { name:'Elena Rossi', plan:'Pro', revenue:299, status:'active' },
+  { name:'Farrukh Tashkentov', plan:'Enterprise', revenue:3600, status:'at-risk' },
+  { name:'Gina Papadopoulos', plan:'Starter', revenue:49, status:'active' },
+  { name:'Hiroshi Tanaka', plan:'Pro', revenue:299, status:'churned' },
+  { name:'Isla MacPherson', plan:'Enterprise', revenue:5100, status:'active' },
+  { name:'Jomo Wangari', plan:'Pro', revenue:299, status:'trialing' },
+];
+let filtered = [...rows], sortDir = {};
+const badgeMap = { active:'bs', trialing:'bi', 'at-risk':'bw', churned:'bd' };
+
+function renderTable() {
+  const body = document.getElementById('tbl-body');
+  body.innerHTML = filtered.map(r => `<tr>
+    <td style="font-weight:500">${r.name}</td>
+    <td style="color:var(--color-text-secondary)">${r.plan}</td>
+    <td style="font-family:var(--font-mono)">$${r.revenue.toLocaleString()}</td>
+    <td><span class="badge ${badgeMap[r.status]}">${r.status}</span></td>
+    <td style="font-family:var(--font-mono);color:var(--color-text-secondary)">$${(r.revenue * 12).toLocaleString()}</td>
+    <td><button onclick="sendPrompt('Tell me about customer ${r.name}: their plan, risk status, and growth potential')" style="font-size:11px;padding:2px 8px">View ↗</button></td>
+  </tr>`).join('');
+  document.getElementById('tbl-count').textContent = `Showing ${filtered.length} of ${rows.length} records`;
+}
+
+function filterTable(q) {
+  const qq = q.toLowerCase();
+  filtered = rows.filter(r => r.name.toLowerCase().includes(qq) || r.plan.toLowerCase().includes(qq) || r.status.includes(qq));
+  renderTable();
+}
+
+function sortTable(col) {
+  if (!col) return;
+  filtered.sort((a,b) => {
+    const av = a[col], bv = b[col];
+    return typeof av === 'number' ? bv - av : av.localeCompare(bv);
+  });
+  renderTable();
+}
+
+function cycleSortTable(col) {
+  sortDir[col] = !sortDir[col];
+  filtered.sort((a,b) => {
+    const av = a[col], bv = b[col], dir = sortDir[col] ? 1 : -1;
+    return typeof av === 'number' ? (av - bv) * dir : av.localeCompare(bv) * dir;
+  });
+  renderTable();
+}
+
+renderTable();
+</script>
