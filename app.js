@@ -42,6 +42,9 @@ const promptClaudeBtn = document.getElementById('promptClaudeBtn');
 const aboutBtn = document.getElementById('aboutBtn');
 const aboutOverlay = document.getElementById('aboutOverlay');
 const aboutCloseBtn = document.getElementById('aboutCloseBtn');
+const securityOverlay = document.getElementById('securityOverlay');
+const securityCloseBtn = document.getElementById('securityCloseBtn');
+const securityDontShowBtn = document.getElementById('securityDontShowBtn');
 
 // SVG icon fragments for file list items
 const ICON_FILE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>';
@@ -625,6 +628,19 @@ aboutCloseBtn.addEventListener('click', () => {
 });
 
 // ══════════════════════════════════════
+// Security Interceptor
+// ══════════════════════════════════════
+
+securityCloseBtn.addEventListener('click', () => {
+  securityOverlay.style.display = 'none';
+});
+
+securityDontShowBtn.addEventListener('click', () => {
+  localStorage.setItem('claude-visuals-hide-security', 'true');
+  securityOverlay.style.display = 'none';
+});
+
+// ══════════════════════════════════════
 // Init
 // ══════════════════════════════════════
 
@@ -633,6 +649,11 @@ aboutCloseBtn.addEventListener('click', () => {
   
   const savedTheme = localStorage.getItem('claude-visuals-theme');
   setTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+  const hideSecurity = localStorage.getItem('claude-visuals-hide-security');
+  if (!hideSecurity) {
+    securityOverlay.style.display = 'flex';
+  }
 
   try {
     files = await dbGetAll();

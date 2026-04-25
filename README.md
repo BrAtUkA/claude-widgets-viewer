@@ -22,6 +22,9 @@ Worse, relying on the original chat history isn't always safe-returning to an ol
 - **Light & Dark Mode:** Native support for both themes, perfectly mirroring Claude's official color palettes.
 - **Fast Search:** Instantly filter through your saved widgets and diagrams.
 
+## ⚠️ Security Note
+Claude artifacts are raw HTML and JavaScript. While this viewer is 100% offline and private, importing a widget will execute its code in your browser. **Only import files from sources you trust.**
+
 ## How to Use
 1. Inside a Claude chat, click the **Download** button on any visual artifact or widget you want to save.
 2. Open the **Claude Widgets Viewer**.
