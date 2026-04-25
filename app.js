@@ -29,6 +29,7 @@ const searchOverlay = document.getElementById('searchOverlay');
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const searchEmpty = document.getElementById('searchEmpty');
+const searchCloseBtn = document.getElementById('searchCloseBtn');
 const confirmOverlay = document.getElementById('confirmOverlay');
 const confirmMessage = document.getElementById('confirmMessage');
 const confirmCancel = document.getElementById('confirmCancel');
@@ -544,6 +545,7 @@ function renderSearchResults(query) {
 }
 
 searchBtn.addEventListener('click', openSearch);
+searchCloseBtn.addEventListener('click', closeSearch);
 searchOverlay.addEventListener('click', (e) => {
   if (e.target === searchOverlay) closeSearch();
 });

@@ -471,6 +471,21 @@ body {
   line-height: 1;
 }
 
+.search-close-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--shell-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-close-btn:hover {
+  color: var(--shell-text);
+}
+
 .search-results {
   max-height: 340px;
   overflow-y: auto;
@@ -1243,6 +1258,14 @@ html[data-theme='light'] .about-logo {
     max-width: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  .search-kbd {
+    display: none;
+  }
+
+  .search-close-btn {
+    display: flex;
   }
 
   .search-results {
