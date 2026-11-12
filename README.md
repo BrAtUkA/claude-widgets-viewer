@@ -2,7 +2,7 @@
   <img src="img/logo.png" alt="Claude Widgets Viewer Logo" width="120" />
   <h1>Claude Widgets Viewer</h1>
   <p><em>A pixel-perfect, private, offline viewer for your exported Claude artifacts.</em></p>
-  <a href="https://bratuka.dev/claude-widgets-viewer/"><strong>Use it now →</strong></a>
+  <a href="https://bratuka.github.io/claude-widgets-viewer/"><strong>Use it now →</strong></a>
 </div>
 
 
